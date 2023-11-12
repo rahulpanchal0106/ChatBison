@@ -5,5 +5,5 @@ const server = http.createServer(app);
 
 
 server.listen(PORT,()=>{
-    console.log(`Server is live at ${PORT}\nhttp://localhost:${PORT}`);
+    console.log(`Server script is fine\nLive at port ${PORT}`);
 })
