@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,'public','index.html'));
 });
-app.use(morgan('dev'));
+app.use(morgan('combined'));
 var messages = [];
 
 app.post('/send_prompt', async (req, res) => {
