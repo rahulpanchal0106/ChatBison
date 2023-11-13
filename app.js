@@ -11,44 +11,13 @@ let prompt;
 
 // client_ip = ipify.v4();
 // console.log(client_ip);
-function getGeoLocation(ipAddress) {
-    // Make a request to the IPinfo.io API
-    return request({
-      url: `https://api.ipinfo.io/v1/${ipAddress}`,
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Your API Key'
-      }
-    });
-  }
+
 
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname,'public')));
 app.get('/', (req, res) => {
-    const clientIP = req.ip;
-    console.log('🌠',clientIP);
-//     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
-//     const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
 
-//   request(ipinfo, { json: true }, (error, res, body) => {
-//     if (error) {
-//       console.error('Error:', error);
-//       res.status(500).send('Internal Server Error');
-//       return;
-//     }
-
-//     console.log('IP Address: ' + body.ip);
-//     console.log('Country: ' + body.country);
-//     console.log('Region: ' + body.region);
-//     console.log('City: ' + body.city);
-//     console.log('Zip Code: ' + body.postal);
-//     console.log('Latitude: ' + body.loc.split(',')[0]);
-//     console.log('Longitude: ' + body.loc.split(',')[1]);
-
-//     res.send('Check the console for geolocation information.');
-//   });
     res.sendFile(path.join(__dirname,'public','index.html'));
 });
 app.use(morgan('combined'));
@@ -57,15 +26,43 @@ var messages = [];
 app.post('/send_prompt', async (req, res) => {
     const clientIP = req.ip;
     console.log('🌠',clientIP);
+    const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
+    const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
+
+  request(ipinfo, { json: true }, (error, res, body) => {
+    if (error) {
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    const userInfo={
+        'IP Address':body.ip,
+        'Country':body.country,
+        'Region':body.region,
+        'City':body.city,
+        'Zip Code':body.postal,
+        'Latitude':body.loc.split(',')[0],
+        'Longitude':body.loc.split(',')[1]
+    }
+    // console.log('IP Address: ' + body.ip);
+    // console.log('Country: ' + body.country);
+    // console.log('Region: ' + body.region);
+    // console.log('City: ' + body.city);
+    // console.log('Zip Code: ' + body.postal);
+    // console.log('Latitude: ' + body.loc.split(',')[0]);
+    // console.log('Longitude: ' + body.loc.split(',')[1]);
+    console.log(userInfo);
+  });
     
-    const geoLocation = JSON.parse(res.body);
-    console.log('IP Address: ' + geoLocation.ip);
-    console.log('Country: ' + geoLocation.country);
-    console.log('Region: ' + geoLocation.region);
-    console.log('City: ' + geoLocation.city);
-    console.log('Zip Code: ' + geoLocation.zip);
-    console.log('Latitude: ' + geoLocation.latitude);
-    console.log('Longitude: ' + geoLocation.longitude);
+    // const geoLocation = JSON.parse(res.body);
+    // console.log('IP Address: ' + geoLocation.ip);
+    // console.log('Country: ' + geoLocation.country);
+    // console.log('Region: ' + geoLocation.region);
+    // console.log('City: ' + geoLocation.city);
+    // console.log('Zip Code: ' + geoLocation.zip);
+    // console.log('Latitude: ' + geoLocation.latitude);
+    // console.log('Longitude: ' + geoLocation.longitude);
     
     prompt = req.body.prompt;
 
