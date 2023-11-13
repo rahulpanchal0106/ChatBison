@@ -1,9 +1,11 @@
 require('dotenv').config();
+
 const express = require('express');
 const app = express(); // Change `new express()` to `express()`
 const morgan = require('morgan');
 const path = require('path');
 const request = require('request');
+
 let prompt;
 // const ipify = require('ipify');
 
@@ -27,18 +29,26 @@ app.use(express.static(path.join(__dirname,'public')));
 app.get('/', (req, res) => {
     const clientIP = req.ip;
     console.log('🌠',clientIP);
-    try {
-        const geoLocation = JSON.parse(req.ip);
-        console.log('IP Address: ' + geoLocation.ip);
-        console.log('Country: ' + geoLocation.country);
-        console.log('Region: ' + geoLocation.region);
-        console.log('City: ' + geoLocation.city);
-        console.log('Zip Code: ' + geoLocation.zip);
-        console.log('Latitude: ' + geoLocation.latitude);
-        console.log('Longitude: ' + geoLocation.longitude);
-      } catch(err) {
-        console.log('Response body is undefined',err);
-      }
+    const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
+    const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
+
+  request(ipinfo, { json: true }, (error, res, body) => {
+    if (error) {
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    console.log('IP Address: ' + body.ip);
+    console.log('Country: ' + body.country);
+    console.log('Region: ' + body.region);
+    console.log('City: ' + body.city);
+    console.log('Zip Code: ' + body.postal);
+    console.log('Latitude: ' + body.loc.split(',')[0]);
+    console.log('Longitude: ' + body.loc.split(',')[1]);
+
+    res.send('Check the console for geolocation information.');
+  });
     res.sendFile(path.join(__dirname,'public','index.html'));
 });
 app.use(morgan('combined'));
