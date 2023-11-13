@@ -41,7 +41,7 @@ app.use(morgan('combined'));
 var messages = [];
 
 app.post('/send_prompt', async (req, res) => {
-    const clientIP = req.connection.remoteAddress;
+    const clientIP = req.ip;
     console.log('🌠',clientIP);
     prompt = req.body.prompt;
     console.log('processing...');
@@ -85,7 +85,7 @@ app.post('/send_prompt', async (req, res) => {
         const resp = result[0].candidates[0].content;
         messages.push({"content":resp});
         console.log("✨",resp);
-        console.log("👍",messages[messages.length-1]);
+        //console.log("👍",messages[messages.length-1]);
         
         res.status(200).json({ result: `${resp}` });
     } catch (error) {

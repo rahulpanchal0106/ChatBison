@@ -376,6 +376,7 @@ code{
     font-size: 0.7em;
     background-color: #606277;
     transition: all 0.4s ease;
+    display: none;
 }
 #regenerate:hover{
     bottom: 85px;
