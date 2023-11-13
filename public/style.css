@@ -365,3 +365,19 @@ code{
     display:flex;
     flex-direction: column;
 }
+
+#regenerate{
+    position: fixed;
+    right: 50px;
+    bottom: 82px;
+    z-index: 30;
+    border-radius: 5px;
+    border: 1px #252525 solid;
+    font-size: 0.7em;
+    background-color: #606277;
+    transition: all 0.4s ease;
+}
+#regenerate:hover{
+    bottom: 85px;
+    box-shadow:0px 3px 20px 1px #252525;;
+}

@@ -31,6 +31,14 @@ function hide_landing(){
     container.style.display="flex";
 }
 
+function fill_prompt(prompt){
+    document.getElementById('prompt').innerHTML=prompt;
+    document.getElementById('prompt').value=prompt;
+    hideBtn();
+    send_prompt(prompt);
+    const regenerate = document.querySelector('#regenerate');
+    regenerate.style.display='none';
+}
 
 function checkOverflow(){
     const textarea = document.getElementById('prompt');
@@ -282,6 +290,26 @@ async function send_prompt(prompt){
 
         const new_result_div = container.querySelector('#result:not(.prev-result)');
         new_result_div.innerHTML=x;
+
+        if(x == ""){
+            new_result_div.innerHTML=`Could not generate any response <br><br>`;
+            const regenerate = document.querySelector('#regenerate');
+            regenerate.style.display="block";
+            regenerate.onclick=()=>{
+                const again = 'try again';
+                fill_prompt(again);
+                regenerate.style.display='none';
+            }
+            console.log("🌚🌚🌚🌚🌚🌚",prompt);
+            // const re_prompt='try again';
+            // async function try_again(re_prompt){
+            //     await send_prompt(re_prompt);
+            // }
+            // regenerate.addEventListener('click',try_again(re_prompt));
+        }
+
+        
+
         //window.location.href='#result';
         const copyAll = document.querySelectorAll('#copyAll');
         copyAll.forEach((copyAllBtn)=>{
@@ -324,6 +352,7 @@ async function send_prompt(prompt){
     }
     
 }
+
 
 
 document.getElementById('form').addEventListener('submit',(event)=>{

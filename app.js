@@ -3,20 +3,45 @@ const express = require('express');
 const app = express(); // Change `new express()` to `express()`
 const morgan = require('morgan');
 const path = require('path');
-
+const request = require('request');
 let prompt;
+// const ipify = require('ipify');
 
+// client_ip = ipify.v4();
+// console.log(client_ip);
+function getGeoLocation(ipAddress) {
+    // Make a request to the IPinfo.io API
+    return request({
+      url: `https://api.ipinfo.io/v1/${ipAddress}`,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Your API Key'
+      }
+    });
+  }
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'public')));
 app.get('/', (req, res) => {
+    const clientIP = req.connection.remoteAddress;
+    console.log('🌠',clientIP);
+    const geoLocation = JSON.parse(response.body);
+    // console.log('IP Address: ' + geoLocation.ip);
+    // console.log('Country: ' + geoLocation.country);
+    // console.log('Region: ' + geoLocation.region);
+    // console.log('City: ' + geoLocation.city);
+    // console.log('Zip Code: ' + geoLocation.zip);
+    // console.log('Latitude: ' + geoLocation.latitude);
+    // console.log('Longitude: ' + geoLocation.longitude);
     res.sendFile(path.join(__dirname,'public','index.html'));
 });
 app.use(morgan('combined'));
 var messages = [];
 
 app.post('/send_prompt', async (req, res) => {
-
+    const clientIP = req.connection.remoteAddress;
+    console.log('🌠',clientIP);
     prompt = req.body.prompt;
     console.log('processing...');
     const { DiscussServiceClient } = require("@google-ai/generativelanguage");
@@ -59,18 +84,29 @@ app.post('/send_prompt', async (req, res) => {
         const resp = result[0].candidates[0].content;
         messages.push({"content":resp});
         console.log("✨",resp);
-        console.log("👍",messages);
+        console.log("👍",messages[messages.length-1]);
         
         res.status(200).json({ result: `${resp}` });
     } catch (error) {
         console.error('Error:', error);
-        PaLM_res = 'Sorry :( <br> I cannot give any information about that';
-        res.status(200).json({ result: `${PaLM_res}` });
+        // PaLM_res = 'Sorry :( <br>I cannot give any information about that <br>Tell me to try again';
+        // const regenerate = `
+        //     <button id="regenerte">
+        //         Regenerate
+        //     </button>
+        // `;
+        res.status(200).json({ result:"" });
     }
-    console.log(messages);
+    // console.log(messages);
     messages.push({"content":"NEXT REQUEST"})
 });
 
+app.get('https://api.ipify.org/',(req,res)=>{
+    console.log(res,"💀💀💀\n",res.ip);
+})
+app.get('/allChats',(req,res)=>{
+    res.json(messages);
+})
 module.exports = {
     app,
     prompt
