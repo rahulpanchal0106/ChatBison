@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
     const clientIP = req.ip;
     console.log('🌠',clientIP);
     try {
-        const geoLocation = JSON.parse(res.body);
+        const geoLocation = JSON.parse(req.ip);
         console.log('IP Address: ' + geoLocation.ip);
         console.log('Country: ' + geoLocation.country);
         console.log('Region: ' + geoLocation.region);
