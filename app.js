@@ -27,14 +27,18 @@ app.use(express.static(path.join(__dirname,'public')));
 app.get('/', (req, res) => {
     const clientIP = req.ip;
     console.log('🌠',clientIP);
-    const geoLocation = JSON.parse(response.body);
-    // console.log('IP Address: ' + geoLocation.ip);
-    // console.log('Country: ' + geoLocation.country);
-    // console.log('Region: ' + geoLocation.region);
-    // console.log('City: ' + geoLocation.city);
-    // console.log('Zip Code: ' + geoLocation.zip);
-    // console.log('Latitude: ' + geoLocation.latitude);
-    // console.log('Longitude: ' + geoLocation.longitude);
+    try {
+        const geoLocation = JSON.parse(res.body);
+        console.log('IP Address: ' + geoLocation.ip);
+        console.log('Country: ' + geoLocation.country);
+        console.log('Region: ' + geoLocation.region);
+        console.log('City: ' + geoLocation.city);
+        console.log('Zip Code: ' + geoLocation.zip);
+        console.log('Latitude: ' + geoLocation.latitude);
+        console.log('Longitude: ' + geoLocation.longitude);
+      } catch(err) {
+        console.log('Response body is undefined',err);
+      }
     res.sendFile(path.join(__dirname,'public','index.html'));
 });
 app.use(morgan('combined'));
@@ -43,7 +47,18 @@ var messages = [];
 app.post('/send_prompt', async (req, res) => {
     const clientIP = req.ip;
     console.log('🌠',clientIP);
+    
+    const geoLocation = JSON.parse(res.body);
+    console.log('IP Address: ' + geoLocation.ip);
+    console.log('Country: ' + geoLocation.country);
+    console.log('Region: ' + geoLocation.region);
+    console.log('City: ' + geoLocation.city);
+    console.log('Zip Code: ' + geoLocation.zip);
+    console.log('Latitude: ' + geoLocation.latitude);
+    console.log('Longitude: ' + geoLocation.longitude);
+    
     prompt = req.body.prompt;
+
     console.log('processing...');
     const { DiscussServiceClient } = require("@google-ai/generativelanguage");
     const { GoogleAuth } = require("google-auth-library");
