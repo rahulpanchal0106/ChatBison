@@ -22,9 +22,10 @@ function getGeoLocation(ipAddress) {
   }
 
 app.use(express.json());
+app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname,'public')));
 app.get('/', (req, res) => {
-    const clientIP = req.connection.remoteAddress;
+    const clientIP = req.ip;
     console.log('🌠',clientIP);
     const geoLocation = JSON.parse(response.body);
     // console.log('IP Address: ' + geoLocation.ip);
