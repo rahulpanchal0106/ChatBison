@@ -29,26 +29,26 @@ app.use(express.static(path.join(__dirname,'public')));
 app.get('/', (req, res) => {
     const clientIP = req.ip;
     console.log('🌠',clientIP);
-    const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
-    const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
+//     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
+//     const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
 
-  request(ipinfo, { json: true }, (error, res, body) => {
-    if (error) {
-      console.error('Error:', error);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
+//   request(ipinfo, { json: true }, (error, res, body) => {
+//     if (error) {
+//       console.error('Error:', error);
+//       res.status(500).send('Internal Server Error');
+//       return;
+//     }
 
-    console.log('IP Address: ' + body.ip);
-    console.log('Country: ' + body.country);
-    console.log('Region: ' + body.region);
-    console.log('City: ' + body.city);
-    console.log('Zip Code: ' + body.postal);
-    console.log('Latitude: ' + body.loc.split(',')[0]);
-    console.log('Longitude: ' + body.loc.split(',')[1]);
+//     console.log('IP Address: ' + body.ip);
+//     console.log('Country: ' + body.country);
+//     console.log('Region: ' + body.region);
+//     console.log('City: ' + body.city);
+//     console.log('Zip Code: ' + body.postal);
+//     console.log('Latitude: ' + body.loc.split(',')[0]);
+//     console.log('Longitude: ' + body.loc.split(',')[1]);
 
-    res.send('Check the console for geolocation information.');
-  });
+//     res.send('Check the console for geolocation information.');
+//   });
     res.sendFile(path.join(__dirname,'public','index.html'));
 });
 app.use(morgan('combined'));
