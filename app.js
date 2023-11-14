@@ -1,21 +1,27 @@
 require('dotenv').config();
 
 const express = require('express');
-const app = express(); // Change `new express()` to `express()`
+const app = express();
 const morgan = require('morgan');
 const path = require('path');
 const request = require('request');
+const fs=require('fs');
 
 let prompt;
-// const ipify = require('ipify');
-
-// client_ip = ipify.v4();
-// console.log(client_ip);
-
+const logStream = fs.createWriteStream(path.join(__dirname, 'console.log'), { flags: 'a' });
+console.log = function(message) {
+  process.stdout.write(`${message}\n`);
+  logStream.write(`${new Date().toISOString()} - ${message}\n`);
+};
+    
 
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname,'public')));
+// app.use((req,res,next)=>{
+//     const 
+// })
+
 app.get('/', (req, res) => {
 
     res.sendFile(path.join(__dirname,'public','index.html'));
@@ -24,8 +30,8 @@ app.use(morgan('combined'));
 var messages = [];
 
 app.post('/send_prompt', async (req, res) => {
-    const clientIP = req.ip;
-    console.log('🌠',clientIP);
+    const clientIP = '162.142.125.222';
+    console.log(`🌠,${clientIP}`);
     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
     const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
 
@@ -45,28 +51,26 @@ app.post('/send_prompt', async (req, res) => {
         'Latitude':body.loc.split(',')[0],
         'Longitude':body.loc.split(',')[1]
     }
-    // console.log('IP Address: ' + body.ip);
-    // console.log('Country: ' + body.country);
-    // console.log('Region: ' + body.region);
-    // console.log('City: ' + body.city);
-    // console.log('Zip Code: ' + body.postal);
-    // console.log('Latitude: ' + body.loc.split(',')[0]);
-    // console.log('Longitude: ' + body.loc.split(',')[1]);
-    console.log(userInfo);
+
+    console.log(userInfo.Region);
+    //JSON.stringify(userInfo)
+    //log(userInfo['IP Address'])
+    // log(`\nIP Address: ${body.ip}`);
+    // log(`Country: ${body.country}`);
+    // log(`Region: ${body.region}`);
+    // log(`City: ${body.city}`);
+    // log(`Zip Code: ${body.postal}`);
+    // log(`(Lati,Longi):(${body.loc.split(',')[0]},${body.loc.split(',')[1]})`)
+    // log(userInfo.Longitude);
+    console.log(userInfo.City);
   });
-    
-    // const geoLocation = JSON.parse(res.body);
-    // console.log('IP Address: ' + geoLocation.ip);
-    // console.log('Country: ' + geoLocation.country);
-    // console.log('Region: ' + geoLocation.region);
-    // console.log('City: ' + geoLocation.city);
-    // console.log('Zip Code: ' + geoLocation.zip);
-    // console.log('Latitude: ' + geoLocation.latitude);
-    // console.log('Longitude: ' + geoLocation.longitude);
-    
+
+
+
     prompt = req.body.prompt;
 
     console.log('processing...');
+    // log('Processing...');
     const { DiscussServiceClient } = require("@google-ai/generativelanguage");
     const { GoogleAuth } = require("google-auth-library");
 
@@ -88,7 +92,8 @@ app.post('/send_prompt', async (req, res) => {
     //const context = "Chat with the user as if the user is your childhood friend"
     const examples = [];
     
-    console.log("Prompt arrived.....", prompt)
+    console.log(`Prompt arrived..... ${prompt}`)
+    // log(`Prompt arrived..... ${prompt}`);
     messages.push({"content":prompt});
 
     try {
@@ -106,27 +111,21 @@ app.post('/send_prompt', async (req, res) => {
         });
         const resp = result[0].candidates[0].content;
         messages.push({"content":resp});
-        console.log("✨",resp);
+
+        console.log(`✨ ${resp}`);
+        
+        // log(`✨ ${resp}`);
         //console.log("👍",messages[messages.length-1]);
         
         res.status(200).json({ result: `${resp}` });
     } catch (error) {
         console.error('Error:', error);
-        // PaLM_res = 'Sorry :( <br>I cannot give any information about that <br>Tell me to try again';
-        // const regenerate = `
-        //     <button id="regenerte">
-        //         Regenerate
-        //     </button>
-        // `;
         res.status(200).json({ result:"" });
     }
     // console.log(messages);
     messages.push({"content":"NEXT REQUEST"})
 });
 
-app.get('https://api.ipify.org/',(req,res)=>{
-    console.log(res,"💀💀💀\n",res.ip);
-})
 app.get('/allChats',(req,res)=>{
     res.json(messages);
 })
