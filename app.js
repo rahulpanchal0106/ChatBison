@@ -30,7 +30,7 @@ app.use(morgan('combined'));
 var messages = [];
 
 app.post('/send_prompt', async (req, res) => {
-    const clientIP = '162.142.125.222';
+    const clientIP = req.ip;
     console.log(`🌠,${clientIP}`);
     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
     const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
