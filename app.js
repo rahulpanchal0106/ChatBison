@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname,'public')));
 // })
 
 app.get('/', (req, res) => {
-    const clientIP = '162.142.125.222';
+    const clientIP = req.ip;
     console.log(`🌠 ${clientIP} entered`);
     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
     const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
