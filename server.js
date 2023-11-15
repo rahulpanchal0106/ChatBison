@@ -1,5 +1,5 @@
 const {app} = require('./app');
-const PORT = process.env.PORT;
+const PORT = 3000;
 const http = require('http');
 const server = http.createServer(app);
 const mongoose = require('mongoose');
