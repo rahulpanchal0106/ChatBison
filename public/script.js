@@ -10,14 +10,6 @@ function go_bottom(){
     window.scrollTo(0,document.body.scrollHeight);
 }
 
-// function about(){
-//     const q_model = document.querySelector('#q_model');
-//     q_model.style.display="flex";
-//     // q_model.style.flexDirection="column";
-// }
-
-//KeyboardEvent.DOM_KEY_LOCATION_LEFT('enter').onclick=()
-
 function hide_container(){
     const container = document.getElementById('container');
     container.style.display="none";
@@ -52,7 +44,6 @@ function checkOverflow(){
 }
 
 function applyTopBar(code){
-    //const code = document.querySelectorAll('code');
     
     const className = code.classList[0];
     const topBar = `
@@ -77,21 +68,17 @@ function applyTopBar(code){
 
 function copy(button) {
     button.addEventListener('click', function() {
-        // Find the associated code container
         const codeContainer = button.closest('#topBar').nextElementSibling;
         const range = document.createRange();
         range.selectNode(codeContainer);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
 
-        // Copy the selected content to the clipboard
         document.execCommand('copy');
 
-        // Clear the selection
+        
         window.getSelection().removeAllRanges();
 
-
-        // Optionally, provide user feedback
         const okBtn = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
@@ -122,15 +109,9 @@ function copyAllFunc(button){
         range.selectNode(codeContainer);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-
-        // Copy the selected content to the clipboard
         document.execCommand('copy');
 
-        // Clear the selection
         window.getSelection().removeAllRanges();
-
-
-        // Optionally, provide user feedback
         const okBtn = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" id="newCopyBtn" height="16" fill="currentColor" class="bi bi-clipboard-check" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
@@ -179,8 +160,9 @@ async function send_prompt(prompt){
             <img width="36" height="36" src="https://i.pinimg.com/736x/13/21/97/1321974a40b4098834ba034dead25f90.jpg" alt="">
         </div>
         <div id="prompt_actions">
+            
             <div id="prompt_text">
-            ${prompt}
+                ${prompt}
             </div>
             <div id="actions">
                 <!-- <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
@@ -203,24 +185,18 @@ async function send_prompt(prompt){
                         <span class="placeholder col-6"></span>
                     </h5>
                     <p class="card-text placeholder-wave">
-                        <span class="placeholder-glow col-7"></span>
-                        <span class="placeholder-glow col-4"></span>
-                        <span class="placeholder-glow col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
-                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-7"></span>
+                        
                         <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-8"></span>
                         <span class="placeholder col-7"></span>
                         <span class="placeholder col-4"></span>
                         <span class="placeholder col-4"></span>
                         <span class="placeholder col-6"></span>
                         <span class="placeholder col-2"></span>
-                        <span class="placeholder col-6"></span>
                         <span class="placeholder col-4"></span>
-                        <span class="placeholder col-8"></span>
                         <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
                         <span class="placeholder col-6"></span>
                         <span class="placeholder col-8"></span>
                         <span class="placeholder col-6"></span>
@@ -301,25 +277,12 @@ async function send_prompt(prompt){
                 regenerate.style.display='none';
             }
             console.log("🌚🌚🌚🌚🌚🌚",prompt);
-            // const re_prompt='try again';
-            // async function try_again(re_prompt){
-            //     await send_prompt(re_prompt);
-            // }
-            // regenerate.addEventListener('click',try_again(re_prompt));
         }
-
-        
-
-        //window.location.href='#result';
         const copyAll = document.querySelectorAll('#copyAll');
         copyAll.forEach((copyAllBtn)=>{
             copyAllBtn.onclick=copyAllFunc(copyAllBtn);
         })
-        // new_result_div.style.animation="fade_in 0.6s ease";
         new_result_div.classList.add('prev-result');
-        
-        //result_div.id="result_prev";
-        //container.innerHTML+=x;
         if(result_div.querySelectorAll('pre')){
             const pre = document.querySelectorAll('pre'); 
             pre.forEach((code)=>{
@@ -335,20 +298,11 @@ async function send_prompt(prompt){
 
         go_bottom();
         show_go_bottom();
-        //const lines = x.split('\n');
-        //const ul = document.createElement('ul');
-        //lines.forEach((line,i)=>{
-        //    const item = document.createElement('li');
-        //    item.textContent  = line;
-        //    ul.appendChild(item);
-        //})
-        //result_div.appendChild(ul);
         return data.result;
     }catch(err){
         console.log(err);
-        // loader.style.display="none";
         const result_div=document.getElementById('result');
-        result_div.innerHTML = "An error occured 🥲"
+        result_div.innerHTML = "Server error"
     }
     
 }
@@ -358,21 +312,8 @@ async function send_prompt(prompt){
 document.getElementById('form').addEventListener('submit',(event)=>{
     event.preventDefault();
     const postData = document.getElementById('prompt').value;
-    
-   // const formData = new FormData(event.target);
-   // const postData = {};
-   // formData.forEach((value, key) => {
-   //     postData[key] = value;
-   // });
-    // const loading = document.getElementById('loading');
-
-    // loading.style.display="block";
     hideBtn();
     hide_landing();
-    console.log(postData);
-
     send_prompt(postData);
-    
-
-   
 });
+

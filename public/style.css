@@ -80,6 +80,9 @@ form{
 form textarea:focus{
     outline: none;
 }
+.placeholder{
+    border-radius: 15px;
+}
 form div textarea{
     width: 100%;
     height: 40px;
@@ -227,7 +230,7 @@ code{
 }
 
 #result_div{
-    width: 100%;
+    width: 70%;
     display: flex;
     justify-content:center;
     align-items: flex-start;
@@ -241,7 +244,7 @@ code{
     justify-content:center;
     align-items: flex-start;
     background-color: #343541;
-    padding: 24px 16px;
+    padding: 24px 17.8%;
 }
 #your_pic img,#ai img{
     object-fit: cover;
@@ -328,11 +331,22 @@ code{
     /* CSS rules to apply to iPhones */
     #prompt_actions, #result_actions{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         width: 92%;
+        justify-content: space-between;
+    }
+    #actions{
+        width:auto;
+    }
+    #prompt_div{
+        width: 100%;
+        padding: 24px 16px;
+    }
+    #result_div{
+        width:100%;
     }
     #result,#prompt_text{
-        width:80%;
+        width: 100%;
     }
     #prompt_text{
         padding-left: 10px;
@@ -370,6 +384,7 @@ code{
     position: fixed;
     right: 50px;
     bottom: 82px;
+    padding: 6px;
     z-index: 30;
     border-radius: 5px;
     border: 1px #252525 solid;
