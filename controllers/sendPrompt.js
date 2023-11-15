@@ -5,7 +5,7 @@ const request = require('request');
 var messages=[];
 const messagesModel = require('../models/convos')
 async function sendPrompt(req,res){
-    const clientIP = '54.254.162.138';
+    const clientIP = req.ip;
     var userInfo={};
     console.log(`🌠 ${clientIP}`);
     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
