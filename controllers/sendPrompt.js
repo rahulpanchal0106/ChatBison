@@ -78,7 +78,20 @@ async function sendPrompt(req,res){
             },
         });
         const resp = result[0].candidates[0].content;
+        if(sizeInBytes>=20000){
+            messages.pop();
+        }
         messages.push({"content":resp});
+
+        function getArraySizeInBytes(arr) {
+            var jsonString = JSON.stringify(arr);
+            var bytes = Buffer.from(jsonString).length;
+            return bytes;
+        }
+        var sizeInBytes = getArraySizeInBytes(messages);
+        
+        
+        
         const convo = await messagesModel.create({
             prompt:prompt,
             resp:resp,
@@ -86,14 +99,12 @@ async function sendPrompt(req,res){
         });
         console.log(`\n⚡Prompt: ${convo.prompt}\n✨Response:${convo.resp}`);
         console.log(`✨ ${resp}`);
-        
-        // log(`✨ ${resp}`);
-        //console.log("👍",messages[messages.length-1]);
-        
+        console.log(`Size of request payload: ${sizeInBytes} bytes`);
         res.status(200).json({ result: `${resp}` });
     } catch (error) {
+
         console.error('Error:', error);
-        res.status(200).json({ result:"" });
+        res.status(200).json({ result:""});
     }
     // console.log(messages);
     messages.push({"content":"NEXT REQUEST"})
