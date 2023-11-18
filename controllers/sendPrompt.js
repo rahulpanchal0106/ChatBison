@@ -37,7 +37,7 @@ async function sendPrompt(req,res){
     const prompt = req.body.prompt;
 
     console.log('processing...');
-    // log('Processing...');
+    
     const { DiscussServiceClient } = require("@google-ai/generativelanguage");
     const { GoogleAuth } = require("google-auth-library");
 
@@ -61,7 +61,6 @@ async function sendPrompt(req,res){
     
     console.log(`Prompt arrived..... ${prompt}`)
     // log(`Prompt arrived..... ${prompt}`);
-    console.log(messages)
     messages.push({"content":prompt});
     
 

@@ -4,11 +4,14 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const path = require('path');
-const request = require('request');
+
 const fs=require('fs');
 
 const sendPrompt=require('./controllers/sendPrompt');
-
+const getChatBison=require('./controllers/getChatBison');
+const authenticate = require('./controllers/auth');
+const getAdminLogin = require('./controllers/getAdminLogin')
+const getAdminDash = require('./controllers/getAdminDash')
 let prompt;
 const logStream = fs.createWriteStream(path.join(__dirname, 'console.log'), { flags: 'a' });
 console.log = function(message) {
@@ -24,40 +27,14 @@ app.use(express.static(path.join(__dirname,'public')));
 //     const 
 // })
 
-app.get('/', (req, res) => {
-    const clientIP = req.ip;
-    console.log(`🌠 ${clientIP} entered`);
-    const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
-    const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
-
-  request(ipinfo, { json: true }, (error, res, body) => {
-    if (error) {
-      console.error('Error:', error);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-
-    const userInfo={
-        'IP Address':body.ip,
-        'Country':body.country,
-        'Region':body.region,
-        'City':body.city,
-        'Zip Code':body.postal,
-        'Latitude':body.loc.split(',')[0],
-        'Longitude':body.loc.split(',')[1]
-    }
-
-    console.log(`Region: ${userInfo.Region}`);
-    console.log(`City: ${userInfo.City}`);
-    console.log(`(Lat,Long):(${userInfo.Latitude},${userInfo.Longitude})`)
-  });
-    res.sendFile(path.join(__dirname,'public','index.html'));
-});
+app.get('/', getChatBison);
 
 // var messages = [];
 
 app.post('/send_prompt',sendPrompt);
 
+app.get('/admin',getAdminLogin)
+app.get('/getAdmin',authenticate,getAdminDash);
 // app.get('/allChats',(req,res)=>{
 //     res.json(messages);
 // })

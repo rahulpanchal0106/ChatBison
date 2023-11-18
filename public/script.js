@@ -1,4 +1,28 @@
 
+// document.addEventListener("DOMContentLoaded", function () {
+//     setTimeout(function () {
+
+        
+        
+//     }, 2000);
+// });
+
+
+// Wait for the page to load completely
+window.addEventListener('load', function () {
+    // Calculate the time it took for the HTML file to be sent from the server
+    var timing = window.performance.timing;
+    var fetchStart = timing.fetchStart;
+    var responseEnd = timing.responseEnd;
+    var loadTime = responseEnd - fetchStart;
+    var spinner = document.getElementById("page_load");
+    spinner.parentNode.removeChild(spinner);
+    
+    console.log('Time to fetch HTML file:', loadTime, 'milliseconds');
+});
+
+
+
 function hide_go_bottom(){
     document.getElementById('goBottom').style.display="none";
 }
@@ -59,13 +83,16 @@ function applyTopBar(code){
     </div>
     `;
     
-    code.insertAdjacentHTML('beforebegin',topBar);
-    const copyButton = code.previousElementSibling.querySelector('#copy');
-    copy(copyButton);
+    code.insertAdjacentHTML('beforebegin',topBar); 
+    const codeCopy = document.querySelectorAll('#copy');
+    codeCopy.forEach((btn)=>{
+        console.log(`btn: ${btn}`);
+        btn.onclick=copy(btn)
+    }); 
     // code.className = 'code_prev';
-
+    
 } 
-
+     
 function copy(button) {
     button.addEventListener('click', function() {
         const codeContainer = button.closest('#topBar').nextElementSibling;
@@ -199,9 +226,11 @@ async function send_prompt(prompt){
                         <span class="placeholder col-7"></span>
                         <span class="placeholder col-6"></span>
                         <span class="placeholder col-8"></span>
+                        <span class="placeholder col-2"></span>
                         <span class="placeholder col-6"></span>
                         <span class="placeholder col-4"></span>
                         <span class="placeholder col-2"></span>
+                        <span class="placeholder col-3"></span>
                         <span class="placeholder col-6"></span>
                         <span class="placeholder col-4"></span>
                         <span class="placeholder col-7"></span>
@@ -281,7 +310,8 @@ async function send_prompt(prompt){
         const copyAll = document.querySelectorAll('#copyAll');
         copyAll.forEach((copyAllBtn)=>{
             copyAllBtn.onclick=copyAllFunc(copyAllBtn);
-        })
+        });
+        
         new_result_div.classList.add('prev-result');
         if(result_div.querySelectorAll('pre')){
             const pre = document.querySelectorAll('pre'); 
@@ -294,7 +324,9 @@ async function send_prompt(prompt){
         newCodeBlocks.forEach((code)=>{
             applyTopBar(code);
             code.classList.add('top-bar-applied');
-        })
+            
+        });
+        
 
         go_bottom();
         show_go_bottom();

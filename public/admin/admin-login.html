@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-panel login</title>
+</head>
+<style>
+    *{
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        
+    }
+    table{
+        gap: 0px;
+        width: 90%;
+        overflow: scroll;
+    }
+    th{
+        border: 1px black solid;
+        text-align: left;
+    }
+    thead{
+        font-size: large;
+    }
+    
+</style>
+<body>
+    <main>
+        <form id="logIn">
+            <input type="text" id="password" placeholder="Enter admin password">
+            <button type="submit">Log in</button>
+        </form>
+    </main>
+    <script>
+        document.querySelector('form').addEventListener('submit',(event)=>{
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            console.log("Password:",password)
+            fetch('/getAdmin',{
+                headers:{
+                    'admin_password':password
+                },
+                method:'GET'
+            })
+            .then((res)=>{
+                return res.json();
+            })
+            .then((data)=>{
+                const body = document.querySelector('body');
+                const html = `
+                    <h1>Welcome to Admin panel</h1>
+                    <br>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>sr.no.</th>
+                                <th>prompts</th>
+                                <th>responses</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>IP Address</th>
+                                <th>Regions</th>
+                                <th>Cities</th>
+                                <th>Countries</th>
+                                <th>Latitudes</th>
+                                <th>Longitudes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_body">
+                            
+                        </tbody>
+                    </table>
+                `;
+                body.innerHTML=html;
+                const chats = data;
+                console.log(`chats: ${chats}`);
+                const tbody=document.querySelector('#table_body');
+                for(let i=0;i<chats.prompts.length;i++){
+
+                    const dateString = data.dates[i];
+                    const dateTime = new Date(dateString);
+                    const year = dateTime.getFullYear();
+                    const month = dateTime.getMonth() + 1;
+                    const day = dateTime.getDate();
+
+                    const hours = dateTime.getHours();
+                    const minutes = dateTime.getMinutes();
+                    const seconds = dateTime.getSeconds();
+                    const milliseconds = dateTime.getMilliseconds();
+
+                    const fullDate = `${day}/${month}/${year}`;
+                    const fullTime = `${hours}:${minutes}:${seconds}:${milliseconds}`;
+                    const tr = `
+                    
+                    <tr>
+                        <th>${i+1}</th>
+                        <th id="prompts">${data.prompts[i]}</th>
+                        <th id="resps">${data.resps[i]}</th>
+                        <th>${fullDate}</th>
+                        <th>${fullTime}</th>
+                        <th>${data.ipAdds[i]}</th>
+                        <th>${data.regions[i]}</th>
+                        <th>${data.cities[i]}</th>
+                        <th>${data.countries[i]}</th>
+                        <th>${data.lats[i]}</th>
+                        <th>${data.lons[i]}</th>
+                    </tr>
+                    `;
+                    
+                    tbody.innerHTML+=tr;
+                }
+                const resps = document.querySelectorAll('#resps');
+                    resps.forEach((resp,i)=>{
+                        resp.innerText = data.resps[i];
+                    })
+                const prompts = document.querySelectorAll('#prompts');
+                    prompts.forEach((prompt,i)=>{
+                        prompt.innerText = data.prompts[i];
+                    })
+            })
+        })
+    </script>
+</body>
+</html>
