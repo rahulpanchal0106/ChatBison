@@ -29,7 +29,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.get('/', getChatBison);
 
-// var messages = [];
+// var messages = []
 
 app.post('/send_prompt',sendPrompt);
 
