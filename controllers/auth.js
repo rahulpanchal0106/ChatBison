@@ -6,10 +6,9 @@ const authenticate = (req, res, next) => {
     const entered_pass = req.headers['admin_password'];
     console.log(`Password came: ${entered_pass}`)
     if (entered_pass === adminPass) {
-  
       return next();
     } else {
-      res.status(401).send('Unauthorized');
+      res.status(401).send(null);
     }
   };
 

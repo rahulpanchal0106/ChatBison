@@ -206,6 +206,11 @@
                 method:'GET'
             })
             .then((res)=>{
+                if(res.status==401){
+                    console.log(res);
+                    loading.innerHTML=`${res.status} : ${res.statusText}<br><a href="/admin">Try Again</a>`
+                    
+                }
                 loadStatus.innerHTML="Loading data"; 
                 return res.json();
             })
