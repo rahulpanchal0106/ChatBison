@@ -28,5 +28,4 @@ app.post('/send_prompt', sendPrompt);
 app.get('/admin', getAdminLogin);
 app.get('/getAdmin', authenticate, getAdminDash);
 
-// Remove module.exports statement
-
+module.exports = app;
