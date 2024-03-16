@@ -25,6 +25,7 @@ app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname,'public')));
 app.get('/', getIndex);
 
+// var messages = []
 
 app.post('/send_prompt',sendPrompt);
 
