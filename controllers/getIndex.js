@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const path = require('path');
 
 function getIndex(req, res){
@@ -29,6 +29,7 @@ function getIndex(req, res){
     console.log(`(Lat,Long):(${userInfo.Latitude},${userInfo.Longitude})`)
   });
     res.sendFile(path.join(__dirname,'public','index.html'));
+    
 }
 
 module.exports = getIndex;

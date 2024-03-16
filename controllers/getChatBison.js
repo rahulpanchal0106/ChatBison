@@ -1,6 +1,6 @@
 
 function getChatBison(req, res){
-    const clientIP = req.ip;
+    const clientIP = '54.254.162.138';
     console.log(`🌠 ${clientIP} entered`);
     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
     const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;

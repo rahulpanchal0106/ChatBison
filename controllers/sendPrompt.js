@@ -5,7 +5,11 @@ const request = require('request');
 var messages=[];
 const messagesModel = require('../models/convos')
 async function sendPrompt(req,res){
-    const clientIP = req.ip;
+    var clientIP = req.ip;
+    console.log
+    if(clientIP=='::ffff:127.0.0.1'){
+        clientIP='54.254.162.138'
+    }
     var userInfo={};
     console.log(`🌠 ${clientIP}`);
     const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
@@ -32,6 +36,130 @@ async function sendPrompt(req,res){
         console.log(`(Lat,Long):(${userInfo.Latitude},${userInfo.Longitude})`)
     });
     
+
+
+    //GEMINI-PRO   TEXT_ONLY
+    // const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+    // const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+    // async function run() {
+    //     // For text-only input, use the gemini-pro model
+    //     const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+      
+    //     const prompt = "Write a story about a magic backpack."
+      
+    //     const result = await model.generateContent(prompt);
+    //     const response = await result.response;
+    //     const text = response.text();
+    //     console.log(":(");
+    //     console.log(text);
+    //   }
+      
+    //   run();
+      
+
+    //GEMINI_VISION     IMAGES
+    // const { GoogleGenerativeAI } = require("@google/generative-ai");
+    // const fs = require("fs");
+
+    // Access your API key as an environment variable (see "Set up your API key" above)
+    // const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+    // // Converts local file information to a GoogleGenerativeAI.Part object.
+    // function fileToGenerativePart(path, mimeType) {
+    // return {
+    //     inlineData: {
+    //     data: Buffer.from(fs.readFileSync(path)).toString("base64"),
+    //     mimeType
+    //     },
+    // };
+    // }
+
+    // async function run() {
+    // // For text-and-image input (multimodal), use the gemini-pro-vision model
+    // const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+
+    // const prompt = "What do you think about the profile from the second image?";
+
+    // const imageParts = [
+    //     fileToGenerativePart("controllers/monkee.png", "image/png"),
+    //     fileToGenerativePart("controllers/img1.png", "image/png"),
+    // ];
+
+    // const result = await model.generateContent([prompt, ...imageParts]);
+    // const response = await result.response;
+    // const text = response.text();
+    // console.log(text);
+    // }
+
+    // run();
+
+
+    //EMBEDDING-001
+    // const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+    // // Access your API key as an environment variable (see "Set up your API key" above)
+    // const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+    // async function run() {
+    // // For embeddings, use the embedding-001 model
+    // const model = genAI.getGenerativeModel({ model: "embedding-001"});
+
+    // const text = "The quick brown fox jumps over the lazy dog."
+
+    // const result = await model.embedContent(text);
+    // const embedding = result.embedding;
+    // console.log(embedding.values);
+    // }
+
+    // run();
+
+
+    //CHAT 
+    
+    // const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+    // // Access your API key as an environment variable (see "Set up your API key" above)
+    // const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+    // async function run() {
+    // // For text-only input, use the gemini-pro model
+    // const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+    // const chat = model.startChat({
+    //     history: [
+    //     {
+    //         role: "user",
+    //         parts: "Hello, I have 2 dogs in my house.",
+    //     },
+    //     {
+    //         role: "model",
+    //         parts: "Great to meet you. What would you like to know?",
+    //     },
+    //     ],
+    //     generationConfig: {
+    //     maxOutputTokens: 100,
+    //     },
+    // });
+
+    // const msg = "How many paws are in my house?";
+
+    // const result = await chat.sendMessage(msg);
+    // const response = await result.response;
+    // const text = response.text();
+    // console.log(text);
+    // }
+
+    // run();
+
+
+
+
+
+
+
+
 
 
     const prompt = req.body.prompt;
@@ -78,9 +206,9 @@ async function sendPrompt(req,res){
             },
         });
         const resp = result[0].candidates[0].content;
-        if(sizeInBytes>=20000){
-            messages.pop();
-        }
+        // if(sizeInBytes>=20000){
+        //     messages.pop();
+        // }
         messages.push({"content":resp});
 
         function getArraySizeInBytes(arr) {

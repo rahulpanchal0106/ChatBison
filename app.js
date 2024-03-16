@@ -8,7 +8,7 @@ const path = require('path');
 const fs=require('fs');
 
 const sendPrompt=require('./controllers/sendPrompt');
-const getChatBison=require('./controllers/getChatBison');
+const getIndex=require('./controllers/getIndex');
 const authenticate = require('./controllers/auth');
 const getAdminLogin = require('./controllers/getAdminLogin')
 const getAdminDash = require('./controllers/getAdminDash')
@@ -23,21 +23,14 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(express.static(path.join(__dirname,'public')));
-// app.use((req,res,next)=>{
-//     const 
-// })
+app.get('/', getIndex);
 
-app.get('/', getChatBison);
-
-// var messages = [];
 
 app.post('/send_prompt',sendPrompt);
 
 app.get('/admin',getAdminLogin)
 app.get('/getAdmin',authenticate,getAdminDash);
-// app.get('/allChats',(req,res)=>{
-//     res.json(messages);
-// })
+
 module.exports = {
     app,
     prompt
