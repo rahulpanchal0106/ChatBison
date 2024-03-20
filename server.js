@@ -1,32 +1,21 @@
-const app = require('./app');
-const mongoose = require('mongoose');
+require('dotenv').config();
+const app = require('./app')
+const mongoose=require('mongoose')
+const port = process.env.PORT || 3000;
+const MONGODB_URI=process.env.MONGODB_URI || '';
+console.log("Connecting to the database...");
+async function golive()
+{
+  try{
+    const database = await mongoose.connect(MONGODB_URI);
+    console.log("Connected to MongoDB: ",database.connection.host)
+  }catch(e){
+    console.error('🔴 ',e);
+  }
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
-async function dbConnect() {
-    try {
-        const con = await mongoose.connect(MONGODB_URI, {
-            useNewUrlParser: true
-        });
-        console.log(`Connected to db cluster: ${con.connection.host}`);
-        return con; // Returning the connection
-    } catch (err) {
-        console.log(`Error: ${err}`);
-        throw err; // Throw error if connection fails
-    }
+  app.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`)
+  })
 }
+golive();
 
-// Start server function
-async function startServer() {
-    try {
-        await dbConnect(); // Await database connection
-        app.listen(process.env.PORT || 3000, () => {
-            console.log(`Server is live!`);
-        });
-    } catch (error) {
-        console.error("Failed to start server:", error);
-        process.exit(1); // Exit process if server fails to start
-    }
-}
-
-startServer(); // Call the function to start the server

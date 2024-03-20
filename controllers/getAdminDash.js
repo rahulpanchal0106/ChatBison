@@ -24,22 +24,37 @@ async function getAdminLogin(req,res){
         const prompt = doc.prompt;
         const resp = doc.resp;
         const date = doc.createdAt;
-        // const ip = doc.userInfo['IP Address']||'null';
-        // const region = doc.userInfo.Region;
-        // const city = doc.userInfo.City;
-        // const country = doc.userInfo.Country;
-        // const lat = doc.userInfo.Latitude;
-        // const lon = doc.userInfo.Longitude;
+        var ip
+        var region
+        var city
+        var country
+        var lat
+        var lon
+        if(doc.userInfo){
+            ip = doc.userInfo['IP Address']||'null';
+            region = doc.userInfo.Region;
+            city = doc.userInfo.City;
+            country = doc.userInfo.Country;
+            lat = doc.userInfo.Latitude;
+            lon = doc.userInfo.Longitude;
+        }else{
+            ip='null'
+            region='null'
+            city='null'
+            country ='null'
+            lat='null'
+            lon = 'null'
+        }
 
         prompts.push(prompt);
         responses.push(resp);
         createdAt.push(date);
-        // ipAdds.push(ip);
-        // regions.push(region);
-        // cities.push(city);
-        // countries.push(country);
-        // lats.push(lat);
-        // lons.push(lon);
+        ipAdds.push(ip);
+        regions.push(region);
+        cities.push(city);
+        countries.push(country);
+        lats.push(lat);
+        lons.push(lon);
     });
 
     console.log("~~~~~~~~~~~~~~",prompts);
@@ -47,12 +62,12 @@ async function getAdminLogin(req,res){
         'prompts':prompts,
         'resps':responses,
         'dates':createdAt,
-        // 'ipAdds':ipAdds,
-        // 'regions':regions,
-        // 'cities':cities,
-        // 'countries':countries,
-        // 'lats':lats,
-        // 'lons':lons
+        'ipAdds':ipAdds,
+        'regions':regions,
+        'cities':cities,
+        'countries':countries,
+        'lats':lats,
+        'lons':lons
     })
 }
 
