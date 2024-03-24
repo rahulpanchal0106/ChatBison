@@ -44,6 +44,7 @@
     text-transform: uppercase;
     display: flex;
     gap: 20px;
+    backdrop-filter: blur(10px);
 }
 
 .list-item a {
@@ -94,24 +95,23 @@
     }
 
     .list-nav-bar.active {
-        display: flex;
-        right: 0;
         opacity: 1;
-    }
+        width: 35%;
+    }   
 
     .list-nav-bar {
         opacity: 0;
-        position: fixed;
-        right: -100%;
+        right: 0;
+        position: absolute;
         top: 60px;
-        width: 35%;
+        width: 0px;
         background-color: rgba(0, 0, 0, 0.2);
         text-align: center;
         flex-direction: column;
         transition: all 0.7s ease-in-out;
         gap: 18px;
         border-radius: 0 0 10px 10px;
-        display: none;
+        display: flex;
     }
 
     .burger-menu {
