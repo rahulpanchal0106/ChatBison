@@ -193,9 +193,9 @@ form{
     width: 100%;
     margin: 0px;
     padding-top:0px;
-    height: 11vh;
+    height: 10.5vh;
     z-index: 20;
-    background-image: linear-gradient(180deg,rgba(67, 68, 73, 0),#353740 20.85%);
+    background-image: linear-gradient(180deg,rgba(67, 68, 73, 0),#353740 15.85%);
 }
 #loading{
     z-index: 10;
