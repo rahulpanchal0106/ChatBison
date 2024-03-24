@@ -97,12 +97,13 @@
     .list-nav-bar.active {
         opacity: 1;
         width: 35%;
+        right: 0px;
     }   
 
     .list-nav-bar {
         opacity: 0;
-        right: 0;
-        position: absolute;
+        right: 100px;
+        position: fixed;
         top: 60px;
         width: 0px;
         background-color: rgba(0, 0, 0, 0.2);
@@ -112,6 +113,7 @@
         gap: 18px;
         border-radius: 0 0 10px 10px;
         display: flex;
+        padding: 5px;
     }
 
     .burger-menu {
