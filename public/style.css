@@ -455,12 +455,13 @@ code{
     /* CSS rules to apply to iPhones */
     #prompt_actions, #result_actions{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         width: 92%;
         justify-content: space-between;
     }
     #actions{
         width:auto;
+        display: block;
     }
     #prompt_div{
         width: 100%;
@@ -471,6 +472,12 @@ code{
     }
     #result,#prompt_text{
         width: 100%;
+    }
+    #result{
+        margin-bottom: 0px;
+    }
+    #result_actions{
+        margin-bottom: 40px;
     }
     #prompt_text{
         padding-left: 10px;
