@@ -17,7 +17,7 @@
         <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
       </div>
-
+        
         <form id="form" action="#" method="post" enctype="multipart/form-data">
             <!-- <label for="prompt">Enter your prompt</label> -->
             <div id="form_full">
@@ -32,7 +32,7 @@
                     </div>
                 </button>
             </div>
-            <small style="padding: 4px; font-size:0.6em; color:#999999cc">Chats may get reviewed for development purposes</small>
+            <small style="padding: 4px; font-size:0.7em; color:#999999cc">ChatBison can make mistakes. Consider checking important information.</small>
         </form>
         
         <div id="intro_div">
@@ -50,7 +50,7 @@
                   <div class="card-body">
                     <div class="button-group" id="intro-div-button-group" >
                         <!-- Button Group 1 -->
-                        <button type="button" id="intro-button-group" style="animation-delay:0ms" class="btn btn">Write a C language program to find Fibonacci series</button>
+                        <button type="button" id="intro-button-group" onclick=send_prompt(Write a C language program to find Fibonacci series) style="animation-delay:0ms" class="btn btn">Write a C language program to find Fibonacci series</button>
                         <button type="button" id="intro-button-group" style="animation-delay:100ms" class="btn btn">Convert that code from C to Javascript, and explain it</button>
                         <button type="button" id="intro-button-group" style="animation-delay:300ms" class="btn btn">Write an email to my teacher</button>
                     </div>
@@ -98,9 +98,30 @@
         </div>
         <br>
         <br>
+        
         <div id="container">
             
         </div>
+        <nav class="nav-bar">
+
+          <div class="icon-nav">
+              <span class="logo">ChatBison</span>
+          </div>
+  
+          <ul class="list-nav-bar active">
+              <li class="list-item">
+                <a target="_blank" href="https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#palm-models">Limits</a>
+              </li>
+              <li type="button" class="list-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a href="#">About</a>
+              </li>
+              <li class="list-item">
+                <a target="_blank" href="https://www.linkedin.com/in/rahul-panchal-05610824a">contact</a>
+              </li>
+          </ul>
+          <div class="fas burger-menu" id="burger-menu">&#9776;</div>
+      </nav>
+  
         <div id="goBottom" onclick="go_bottom()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>

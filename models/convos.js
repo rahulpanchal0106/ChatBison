@@ -9,11 +9,14 @@ const convoSchema = mongoose.Schema({
     },
     userInfo:{
         type:Object
+    },
+    tokens:{
+        type:Number
     }
 },{
     timestamps:true
 })
 
-const convoModel = mongoose.model("convo",convoSchema);
+const convoModel = mongoose.model("test0",convoSchema);
 
 module.exports=convoModel;

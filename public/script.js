@@ -21,7 +21,14 @@ window.addEventListener('load', function () {
     console.log('Time to fetch HTML file:', loadTime, 'milliseconds');
 });
 
+const hamburguer = document.getElementById("burger-menu")
+const navMenu = document.querySelector(".list-nav-bar")
 
+
+hamburguer.addEventListener("click", ()=>{
+    hamburguer.classList.toggle('active');
+    navMenu.classList.toggle('active');
+})
 
 function hide_go_bottom(){
     document.getElementById('goBottom').style.display="none";
@@ -297,7 +304,7 @@ async function send_prompt(prompt){
         new_result_div.innerHTML=x;
 
         if(x == ""){
-            new_result_div.innerHTML=`Could not generate any response <br><br>`;
+            new_result_div.innerHTML=`chat-bison has failed to generate response for this prompt, please try again <br><br>`;
             const regenerate = document.querySelector('#regenerate');
             regenerate.style.display="block";
             regenerate.onclick=()=>{
@@ -335,6 +342,7 @@ async function send_prompt(prompt){
         console.log(err);
         const result_div=document.getElementById('result');
         result_div.innerHTML = "Server error"
+        showBtn();
     }
     
 }
