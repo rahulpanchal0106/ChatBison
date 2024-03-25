@@ -17,6 +17,6 @@ const convoSchema = mongoose.Schema({
     timestamps:true
 })
 
-const convoModel = mongoose.model("test0",convoSchema);
+const convoModel = mongoose.model("test1",convoSchema);
 
 module.exports=convoModel;
