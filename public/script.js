@@ -29,6 +29,15 @@ hamburguer.addEventListener("click", ()=>{
     hamburguer.classList.toggle('active');
     navMenu.classList.toggle('active');
 })
+function fill_auto(event){
+    const fill_text=event.target.lastChild.data;
+    console.log(fill_text," +++++++++++++++++++++++ ",event);
+    container.style.display="flex";
+    const again = fill_text;
+    fill_prompt(again);
+    regenerate.style.display='none';
+    go_bottom()
+}
 
 function hide_go_bottom(){
     document.getElementById('goBottom').style.display="none";
@@ -302,16 +311,12 @@ async function send_prompt(prompt){
 
         const new_result_div = container.querySelector('#result:not(.prev-result)');
         new_result_div.innerHTML=x;
-
+        
         if(x == ""){
             new_result_div.innerHTML=`chat-bison has failed to generate response for this prompt, please try again <br><br>`;
             const regenerate = document.querySelector('#regenerate');
             regenerate.style.display="block";
-            regenerate.onclick=()=>{
-                const again = 'try again';
-                fill_prompt(again);
-                regenerate.style.display='none';
-            }
+            regenerate.onclick=(e)=>fill_auto(e);
             console.log("🌚🌚🌚🌚🌚🌚",prompt);
         }
         const copyAll = document.querySelectorAll('#copyAll');
@@ -335,7 +340,7 @@ async function send_prompt(prompt){
         });
         
 
-        go_bottom();
+        
         show_go_bottom();
         return data.result;
     }catch(err){
@@ -344,16 +349,23 @@ async function send_prompt(prompt){
         result_div.innerHTML = "Server error"
         showBtn();
     }
+
+    
     
 }
 
+const introButtons=document.querySelector('#intro-div-button-group');
 
+introButtons.onclick=(e)=>fill_auto(e);
 
 document.getElementById('form').addEventListener('submit',(event)=>{
     event.preventDefault();
     const postData = document.getElementById('prompt').value;
     hideBtn();
-    hide_landing();
+    // hide_landing();
+    container.style.display="flex";
     send_prompt(postData);
+    go_bottom();
 });
+
 

@@ -17,7 +17,25 @@
         <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
       </div>
-        
+      <nav class="nav-bar active">
+
+        <div class="icon-nav">
+            <span class="logo">ChatBison</span>
+        </div>
+
+        <ul class="list-nav-bar">
+            <li class="list-item">
+              <a target="_blank" href="https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#palm-models">Limits</a>
+            </li>
+            <li type="button" class="list-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <a href="#">About</a>
+            </li>
+            <li class="list-item">
+              <a target="_blank" href="https://www.linkedin.com/in/rahul-panchal-05610824a">contact</a>
+            </li>
+        </ul>
+        <div class="fas burger-menu" id="burger-menu">&#9776;</div>
+    </nav>
         <form id="form" action="#" method="post" enctype="multipart/form-data">
             <!-- <label for="prompt">Enter your prompt</label> -->
             <div id="form_full">
@@ -39,7 +57,7 @@
             <div id="header_div">
                 <h1 class="display-3">ChatBison</h1>
             </div>
-            <div class="card-group">
+            <div class="card-group" id="card-group-id">
                 <div class="card">
                   <div id="topImg">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
@@ -48,9 +66,8 @@
                     Examples
                   </div>
                   <div class="card-body">
-                    <div class="button-group" id="intro-div-button-group" >
-                        <!-- Button Group 1 -->
-                        <button type="button" id="intro-button-group" onclick=send_prompt(Write a C language program to find Fibonacci series) style="animation-delay:0ms" class="btn btn">Write a C language program to find Fibonacci series</button>
+                    <div class="button-group" id="intro-div-button-group"  >
+                        <button type="button" id="intro-button-group" style="animation-delay:0ms" class="btn btn">Write a C language program to find Fibonacci series</button>
                         <button type="button" id="intro-button-group" style="animation-delay:100ms" class="btn btn">Convert that code from C to Javascript, and explain it</button>
                         <button type="button" id="intro-button-group" style="animation-delay:300ms" class="btn btn">Write an email to my teacher</button>
                     </div>
@@ -67,7 +84,6 @@
                   <div class="card-body">
                     
                     <div class="button-group" id="intro-div-button-group">
-                        <!-- Button Group 2 -->
                         <button type="button" id="intro-button-group" style="animation-delay:0ms" class="btn btn">Remembers what user said earlier in conversations</button>
                         <button type="button" id="intro-button-group" style="animation-delay:100ms" class="btn btn">Allows users to provide follow-up corrections</button>
                         <button type="button" id="intro-button-group" style="animation-delay:300ms" class="btn btn">Trained to decline inappropriate requests</button>
@@ -87,7 +103,6 @@
                   <div class="card-body">
                     
                     <div class="button-group" id="intro-div-button-group">
-                        <!-- Button Group 3 -->
                         <button type="button" style="animation-delay:0ms" id="intro-button-group" class="btn btn">May occasionally generate incorrect information</button>
                         <button type="button" style="animation-delay:100ms" id="intro-button-group" class="btn btn">May produce harmful instructions or biased content</button>
                         <button type="button" style="animation-delay:300ms" id="intro-button-group" class="btn btn">Does not retain conversations from the distant past</button>
@@ -96,31 +111,10 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
         
         <div id="container">
             
         </div>
-        <nav class="nav-bar active">
-
-          <div class="icon-nav">
-              <span class="logo">ChatBison</span>
-          </div>
-  
-          <ul class="list-nav-bar">
-              <li class="list-item">
-                <a target="_blank" href="https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#palm-models">Limits</a>
-              </li>
-              <li type="button" class="list-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <a href="#">About</a>
-              </li>
-              <li class="list-item">
-                <a target="_blank" href="https://www.linkedin.com/in/rahul-panchal-05610824a">contact</a>
-              </li>
-          </ul>
-          <div class="fas burger-menu" id="burger-menu">&#9776;</div>
-      </nav>
   
         <div id="goBottom" onclick="go_bottom()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">

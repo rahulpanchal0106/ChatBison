@@ -9,7 +9,10 @@
     font-family: 'Poppins','Open Sans',Arial;
 }
 
-
+.hljs,
+.hljs-subst {
+  color: black;
+}
 
 .nav-bar {
     display: flex;
@@ -20,8 +23,8 @@
     align-items: center;
     padding: 25px 1.5rem;
     height: 60px;
-    background-color: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
+    background-color: #2a2a34;
+    z-index: 50;
 }
 
 .logo {
@@ -44,7 +47,9 @@
     text-transform: uppercase;
     display: flex;
     gap: 20px;
-    backdrop-filter: blur(10px);
+    background-color: #2a2a3400;
+    z-index: 40;
+    margin-bottom: 0px;
 }
 
 .list-item a {
@@ -98,7 +103,15 @@
         opacity: 1;
         width: 35%;
         right: 0px;
+        padding-bottom: 18px;
     }   
+    .list-nav-bar.active a{
+        font-size: 1.1em;
+        padding: 1em;
+    }
+    .list-nav-bar a{
+        font-size: 0em;
+    }
 
     .list-nav-bar {
         opacity: 0;
@@ -106,7 +119,8 @@
         position: fixed;
         top: 60px;
         width: 0px;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: #2a2a34;
+        
         text-align: center;
         flex-direction: column;
         transition: all 0.7s ease-in-out;
@@ -148,7 +162,7 @@ body{
     margin: 0px; 
     color:white;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -156,7 +170,8 @@ body{
 #intro_div{
     width: 60%;
     padding: 30px 0px;
-    margin-bottom: 10em;
+    
+    margin-bottom: 2em;
 }
 #header_div{
     width: 100%;
@@ -166,6 +181,11 @@ body{
 #intro-div-button-group{
     display: flex;
     flex-direction: column;
+    
+}
+#card-group-id button:hover{
+    box-shadow: 0px 0px 15px 11px rgba(168, 168, 168, 0.5);
+    scale: 0.9;
 
 }
 #intro-button-group{
@@ -175,6 +195,7 @@ body{
     background-color: #343541;
     box-shadow: 0px 0px 15px rgba(0,0,0,.1);
     color: white;
+    transition: all 0.4s ease-in-out;
 }
 
 #topImg{
@@ -193,9 +214,9 @@ form{
     width: 100%;
     margin: 0px;
     padding-top:0px;
-    height: 10.5vh;
+    height: 10.7vh;
     z-index: 20;
-    background-image: linear-gradient(180deg,rgba(67, 68, 73, 0),#353740 15.85%);
+    background-image: linear-gradient(180deg, rgba(67, 68, 73, 0), #353740 46.85%);
 }
 #loading{
     z-index: 10;
