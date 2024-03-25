@@ -9,10 +9,10 @@
     font-family: 'Poppins','Open Sans',Arial;
 }
 
-.hljs,
+/* .hljs,
 .hljs-subst {
-  color: black;
-}
+  color:#dddd;
+} */
 
 .nav-bar {
     display: flex;
@@ -641,5 +641,48 @@ body #question:hover{
     }
   }
   
-
+.hljs {
+    color: #abb2bf;
+    background: #282c34;
+  }
+  
+  .hljs-comment,
+  .hljs-meta {
+    color: #65737e;
+  }
+  
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-tag,
+  .hljs-title {
+    color: #c678dd; 
+  }
+  
+  .hljs-string{
+    color:#c3602d;
+  }
+  
+  .hljs-meta-string,
+  .hljs-name,
+  .hljs-built_in,
+  .hljs-literal,
+  .hljs-template-string,
+  .hljs-type,
+  .hljs-number,
+  .hljs-regexp,
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #98c379; 
+  }
+  
+  .hljs-function,
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #579cbb;
+  }
+  
+  .hljs-title[class*="language-"],
+  .hljs-selector-tag[class*="language-"] {
+    color: #e06c75; 
+  }
   
