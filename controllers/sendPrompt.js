@@ -8,7 +8,6 @@ const messagesModel = require('../models/convos')
 async function sendPrompt(req,res){
     console.log("🟢🟢🟢🟢🟢🟢🟢 ");
     var clientIP = req.ip;
-    console.log
     if(clientIP=='::ffff:127.0.0.1' || '127.0.0.1' || '::ffff' || '::1' ){
         clientIP='103.85.9.179'
     }
