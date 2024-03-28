@@ -20,7 +20,7 @@ async function getAdminLogin(req,res){
     
 
     await cursor.forEach((doc)=>{
-        console.log(".............................",doc.prompt);
+        // console.log(".............................",doc.prompt);
         const prompt = doc.prompt;
         const resp = doc.resp;
         const date = doc.createdAt;
@@ -57,7 +57,7 @@ async function getAdminLogin(req,res){
         lons.push(lon);
     });
 
-    console.log("~~~~~~~~~~~~~~",prompts);
+    // console.log("~~~~~~~~~~~~~~",prompts);
     res.json({
         'prompts':prompts,
         'resps':responses,
