@@ -35,6 +35,9 @@ const getChatBison=require('./controllers/getChatBison');
 const authenticate = require('./controllers/auth');
 const getAdminLogin = require('./controllers/getAdminLogin');
 const getAdminDash = require('./controllers/getAdminDash');
+const getUserLogin = require('./controllers/getUserLogin.js');
+const postUserLogin = require('./controllers/postUserLogin.js');
+const signup = require('./controllers/signup.js')
 
 // const logStream = fs.createWriteStream(path.join(__dirname, 'console.log'), { flags: 'a' });
 
@@ -51,6 +54,9 @@ app.get('/', getChatBison);
 app.post('/send_prompt', sendPrompt);
 app.get('/admin', getAdminLogin);
 app.get('/getAdmin', authenticate, getAdminDash);
+app.get('/userLogin',postUserLogin, getUserLogin);
+// app.post('/userLogin', postUserLogin);
+app.post('/signup',signup);
 
 
 
