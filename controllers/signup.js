@@ -1,13 +1,17 @@
 const userModel = require('../models/user');
 async function signup(req,res){
     console.log("User Signup process initiated...");
-    const email='user@email.com'
-    const password='123';
-    var localData;
-    localData={
-        'prompt':'heyy',
-        'resp':'Hello! how can I help you today?'
-    }
+    // const email='user@email.com'
+    // const password='123';
+    const email = req.body.email;
+    const password = req.body.password;
+    var localData = req.body.localData;
+    // if(!localData){
+    //     localData={
+    //         'prompt':'heyy',
+    //         'resp':'Hello! how can I help you today?'
+    //     }   
+    // }
     const data = {
         email:email,
         password:password,
@@ -16,7 +20,7 @@ async function signup(req,res){
     const alreadyExists = await userModel.findOne({$and:[{email:email},{password:password}]})
     if(alreadyExists){
         console.log("⭕🟩⭕🟩 User Already Exists!")
-        res.send("Failed");
+        res.send("Already Exists!");
     }else{
         await userModel.create(data) 
         console.log("user registered successgully")
