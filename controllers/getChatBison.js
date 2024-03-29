@@ -1,10 +1,15 @@
-
+function sessionIdGenerator(){
+  const timeStamp=Date.now();
+  const randInt = Math.floor(Math.random()*1000000+10000)
+  const id=`${timeStamp} ${randInt}`
+  return id;
+}
 function getChatBison(req, res){
-    const clientIP = '54.254.162.138';
-    console.log(`🌠 ${clientIP} entered`);
-    const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
-    const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
-
+  const clientIP = '54.254.162.138';
+  console.log(`🌠 ${clientIP} entered`);
+  const IPINFO_TOKEN = process.env.IPINFO_TOKEN;
+  const ipinfo = `https://ipinfo.io/${clientIP}?token=${IPINFO_TOKEN}`;
+    
   request(ipinfo, { json: true }, (error, res, body) => {
     if (error) {
       console.error('Error:', error);
@@ -22,11 +27,14 @@ function getChatBison(req, res){
         'Longitude':body.loc.split(',')[1]
     }
 
-    console.log(`Region: ${userInfo.Region}`);
-    console.log(`City: ${userInfo.City}`);
+    console.log(`<<<<<Region: ${userInfo.Region}`);
+    console.log(`<<<<<,City: ${userInfo.City}`);
     console.log(`(Lat,Long):(${userInfo.Latitude},${userInfo.Longitude})`)
   });
-    res.sendFile(path.join(__dirname,'public','index.html'));
+  const sessionId = sessionIdGenerator();
+
+  console.log("🙌🙌🙌 Session Id: ",sessionId)
+  return res.sendFile(path.join(__dirname,'public','index.html'));
 }
 
 

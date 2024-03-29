@@ -24,9 +24,9 @@ function getIndex(req, res){
         'Longitude':body.loc.split(',')[1]
     }
 
-    console.log(`Region: ${userInfo.Region}`);
-    console.log(`City: ${userInfo.City}`);
-    console.log(`(Lat,Long):(${userInfo.Latitude},${userInfo.Longitude})`)
+    console.log(`>>Region: ${userInfo.Region}`);
+    console.log(`>>City: ${userInfo.City}`);
+    console.log(`>>(Lat,Long):(${userInfo.Latitude},${userInfo.Longitude})`)
   });
     res.sendFile(path.join(__dirname,'public','index.html'));
     
