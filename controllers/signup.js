@@ -5,6 +5,7 @@ async function signup(req,res){
     // const password='123';
     const email = req.body.email;
     const password = req.body.password;
+    // const {email,password} = req.query;
     var localData = req.body.localData;
     if(!localData){
         localData=null  
@@ -17,11 +18,11 @@ async function signup(req,res){
     const alreadyExists = await userModel.findOne({email:email})
     if(alreadyExists){
         console.log("⭕🟩⭕🟩 User Already Exists!")
-        res.send("Already Exists!");
+        res.status(501).send("Already Exists!");
     }else{
         await userModel.create(data) 
         console.log("user registered successgully")
-        res.send('Done');
+        res.status(201).send('Done');
     }
 }
 module.exports=signup;

@@ -644,8 +644,28 @@ body #question:hover{
     50% {
       opacity: 0.5;
     }
-  }
-  
+}
+#history_toggle{
+    cursor:pointer
+}
+
+.history{
+    display: none;
+
+}
+.history.active{
+    display: flex;
+    top:60px;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    border-radius: 7px;
+    left:0px;
+    width: 40%;
+    position: fixed;
+    height: 95%;
+    max-width: 300px;
+}
 .hljs {
     color: #abb2bf;
     background: #282c34;

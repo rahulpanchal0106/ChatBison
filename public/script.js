@@ -368,4 +368,9 @@ document.getElementById('form').addEventListener('submit',(event)=>{
     go_bottom();
 });
 
-
+const history_toggle=document.querySelector('#history_toggle');
+const history_tab=document.querySelector('#history');
+history_toggle.addEventListener("click",()=>{
+    console.log('clicked..')
+    history_tab.classList.toggle('active')
+});
