@@ -257,6 +257,11 @@ form div button{
     position: absolute;
     right: 1.6%;
 }
+#login_btn{
+    border-radius: 5px;
+    background-color: #b7829a;
+    padding:3px;
+}
 #sent,#send{
     width: 25px;
     height: 25px;
