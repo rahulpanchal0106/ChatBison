@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express')
 const path = require("path");
 const app = express()
+const cors=require('cors')
+app.use(cors())
 
 // #############################################################################
 // Logs all request paths and method
@@ -55,7 +57,6 @@ app.post('/send_prompt', sendPrompt);
 app.get('/admin', getAdminLogin);
 app.get('/getAdmin', authenticate, getAdminDash);
 app.get('/userLogin',postUserLogin, getUserLogin);
-// app.post('/userLogin', postUserLogin);
 app.post('/signup',signup);
 
 

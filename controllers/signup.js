@@ -6,18 +6,15 @@ async function signup(req,res){
     const email = req.body.email;
     const password = req.body.password;
     var localData = req.body.localData;
-    // if(!localData){
-    //     localData={
-    //         'prompt':'heyy',
-    //         'resp':'Hello! how can I help you today?'
-    //     }   
-    // }
+    if(!localData){
+        localData=null  
+    }
     const data = {
         email:email,
         password:password,
         localData:localData
     }
-    const alreadyExists = await userModel.findOne({$and:[{email:email},{password:password}]})
+    const alreadyExists = await userModel.findOne({email:email})
     if(alreadyExists){
         console.log("⭕🟩⭕🟩 User Already Exists!")
         res.send("Already Exists!");

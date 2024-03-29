@@ -1,10 +1,10 @@
 function getUserLogin(req, res) {
     if (req.isAuthenticated) {
         console.log("Redirecting to the app...");
-        return res.redirect('https://github.com/rahulpanchal0106');
+        return res.status(200).redirect('https://rahulpanchal0106.github.io/25React/');
     } else {
         console.log("User not authenticated. Redirecting to login page...");
-        return res.redirect('/userLogin');
+        return res.status(401).redirect('/userLogin');
     }
 }
 
